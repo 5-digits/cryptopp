@@ -294,7 +294,11 @@ bool IntegrityCheckModule(const char *moduleFilename, const byte *expectedModule
 	if (!moduleStream)
 	{
 #ifdef CRYPTOPP_WIN32_AVAILABLE
-		OutputDebugString("Crypto++ DLL integrity check failed. Cannot open file for reading.");
+#ifdef _UNICODE
+		OutputDebugString(L"Crypto++ DLL integrity check failed. Cannot open file for reading.");
+#else
+        OutputDebugString("Crypto++ DLL integrity check failed. Cannot open file for reading.");
+#endif
 #endif
 		return false;
 	}
@@ -388,7 +392,11 @@ bool IntegrityCheckModule(const char *moduleFilename, const byte *expectedModule
 	// hash from disk instead
 	if (!VerifyBufsEqual(expectedModuleMac, actualMac, macSize))
 	{
-		OutputDebugString("In memory integrity check failed. This may be caused by debug breakpoints or DLL relocation.\n");
+#ifdef _UNICODE
+                OutputDebugString(L"In memory integrity check failed. This may be caused by debug breakpoints or DLL relocation.\n");
+#else
+                OutputDebugString("In memory integrity check failed. This may be caused by debug breakpoints or DLL relocation.\n");
+#endif
 		moduleStream.clear();
 		moduleStream.seekg(0);
 		verifier.Initialize(MakeParameters(Name::OutputBuffer(), ByteArrayParameter(actualMac, (unsigned int)actualMac.size())));
@@ -407,7 +415,18 @@ bool IntegrityCheckModule(const char *moduleFilename, const byte *expectedModule
 #ifdef CRYPTOPP_WIN32_AVAILABLE
 	std::string hexMac;
 	HexEncoder(new StringSink(hexMac)).PutMessageEnd(actualMac, actualMac.size());
-	OutputDebugString((("Crypto++ DLL integrity check failed. Actual MAC is: " + hexMac) + "\n").c_str());
+
+#ifdef _UNICODE
+    wchar_t* buf = new wchar_t[hexMac.size() * 2 + 2];
+    swprintf(buf, L"%S", hexMac.c_str());
+    std::wstring rval = buf;
+    delete[] buf;
+
+    OutputDebugString(((L"Crypto++ DLL integrity check failed. Actual MAC is: " + rval) + L"\n").c_str());
+#else
+    OutputDebugString((("Crypto++ DLL integrity check failed. Actual MAC is: " + hexMac) + "\n").c_str());
+#endif
+
 #endif
 	return false;
 }
