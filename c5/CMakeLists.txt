@@ -1,6 +1,8 @@
 
 # CMakified version of crypto++ you can use in your projects.
-# by Michał Papierski (michal@papierski.net)
+
+# original contributor: Michał Papierski (michal@papierski.net)
+# additional work by: Cameron Garnham (da2ce7@gmail.com)
 
 
 
@@ -293,6 +295,11 @@ ADD_LIBRARY (cryptopp
 	${cryptopp_SOURCES}
 	${cryptopp_HEADERS}
 )
+
+IF(WIN32)
+    TARGET_LINK_LIBRARIES(cryptopp ws2_32)
+ENDIF(WIN32)
+
 
 IF (CRYPTOPP_BUILD_TESTS)
 	ENABLE_TESTING ()
