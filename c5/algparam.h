@@ -23,7 +23,16 @@ public:
 	}
 	template <class T> ConstByteArrayParameter(const T &string, bool deepCopy = false)
 	{
+        // ignore unused variable for now - Cameron 20/08/2014
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-variable"
+#endif
         CRYPTOPP_COMPILE_ASSERT(sizeof(CPP_TYPENAME T::value_type) == 1);
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+
 		Assign((const byte *)string.data(), string.size(), deepCopy);
 	}
 
@@ -319,7 +328,15 @@ public:
 
 	void MoveInto(void *buffer) const
 	{
+        // ignore unused variable for now - Cameron 20/08/2014
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-variable"
+#endif
 		AlgorithmParametersTemplate<T>* p = new(buffer) AlgorithmParametersTemplate<T>(*this);
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
 	}
 
 protected:
