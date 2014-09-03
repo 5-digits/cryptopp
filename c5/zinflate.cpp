@@ -607,7 +607,7 @@ struct NewFixedDistanceDecoder
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #endif
 		std::auto_ptr<HuffmanDecoder> pDecoder(new HuffmanDecoder);
-#ifdef _MSC_VER
+#ifndef _MSC_VER
 #pragma GCC diagnostic pop
 #endif
 		pDecoder->Initialize(codeLengths, 32);
