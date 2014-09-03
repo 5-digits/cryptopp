@@ -602,7 +602,14 @@ struct NewFixedDistanceDecoder
 	{
 		unsigned int codeLengths[32];
 		std::fill(codeLengths + 0, codeLengths + 32, 5);
+#ifndef _MSC_VER
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
 		std::auto_ptr<HuffmanDecoder> pDecoder(new HuffmanDecoder);
+#ifdef _MSC_VER
+#pragma GCC diagnostic pop
+#endif
 		pDecoder->Initialize(codeLengths, 32);
 		return pDecoder.release();
 	}
