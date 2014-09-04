@@ -687,7 +687,7 @@ public:
 			m_ciphertext.resize(ciphertextLength);
 			m_encryptor.Encrypt(m_rng, plaintext, plaintextLength, m_ciphertext, m_parameters);
 			}
-##ifndef _MSC_VER
+#ifndef _MSC_VER
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-value"
 #endif
@@ -740,7 +740,7 @@ public:
 			if (!m_result.isValidCoding)
 				throw InvalidCiphertext(m_decryptor.AlgorithmName() + ": invalid ciphertext");
 			}
-##ifndef _MSC_VER
+#ifndef _MSC_VER
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-value"
 #endif
