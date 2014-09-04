@@ -170,7 +170,7 @@ size_t MeterFilter::PutMaybeModifiable(byte *begin, size_t length, int messageEn
 	{
 		if (m_length > 0  && !m_rangesToSkip.empty() && m_rangesToSkip.front().message == m_totalMessages && m_currentMessageBytes + m_length > m_rangesToSkip.front().position)
 		{
-##ifndef _MSC_VER
+#ifndef _MSC_VER
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-value"
 #endif
@@ -201,7 +201,7 @@ size_t MeterFilter::PutMaybeModifiable(byte *begin, size_t length, int messageEn
 		}
 		else
 		{
-##ifndef _MSC_VER
+#ifndef _MSC_VER
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-value"
 #endif
@@ -741,7 +741,7 @@ void HashFilter::IsolatedInitialize(const NameValuePairs &parameters)
 	m_digestSize = s < 0 ? m_hashModule.DigestSize() : s;
 }
 
-##ifndef _MSC_VER
+#ifndef _MSC_VER
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-value"
 #endif
