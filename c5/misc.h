@@ -545,9 +545,9 @@ inline void SecureWipeArray(T *buf, size_t n)
 }
 
 // ignore unused function for now - Cameron 20/08/2014
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-function"
+#ifndef _MSC_VER
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
 #endif
 // this function uses wcstombs(), which assumes that setlocale() has been called
 static std::string StringNarrow(const wchar_t *str, bool throwOnError = true)
@@ -571,8 +571,8 @@ static std::string StringNarrow(const wchar_t *str, bool throwOnError = true)
 #pragma warning(pop)
 #endif
 }
-#ifdef __clang__
-#pragma clang diagnostic pop
+#ifndef _MSC_VER
+#pragma GCC diagnostic pop
 #endif
 
 #if CRYPTOPP_BOOL_ALIGN16_ENABLED

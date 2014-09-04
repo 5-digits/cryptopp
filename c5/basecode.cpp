@@ -8,6 +8,11 @@
 #include "fltrimpl.h"
 #include <ctype.h>
 
+// FILTER_OUTPUT expression result unused
+#ifndef _MSC_VER
+#pragma GCC diagnostic ignored "-Wunused-value"
+#endif
+
 NAMESPACE_BEGIN(CryptoPP)
 
 void BaseN_Encoder::IsolatedInitialize(const NameValuePairs &parameters)

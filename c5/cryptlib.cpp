@@ -687,8 +687,14 @@ public:
 			m_ciphertext.resize(ciphertextLength);
 			m_encryptor.Encrypt(m_rng, plaintext, plaintextLength, m_ciphertext, m_parameters);
 			}
-			
+##ifndef _MSC_VER
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-value"
+#endif
 			FILTER_OUTPUT(1, m_ciphertext, m_ciphertext.size(), messageEnd);
+#ifndef _MSC_VER
+#pragma GCC diagnostic pop
+#endif
 		}
 		FILTER_END_NO_MESSAGE_END;
 	}
@@ -734,8 +740,14 @@ public:
 			if (!m_result.isValidCoding)
 				throw InvalidCiphertext(m_decryptor.AlgorithmName() + ": invalid ciphertext");
 			}
-
+##ifndef _MSC_VER
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-value"
+#endif
 			FILTER_OUTPUT(1, m_plaintext, m_result.messageLength, messageEnd);
+#ifndef _MSC_VER
+#pragma GCC diagnostic pop
+#endif
 		}
 		FILTER_END_NO_MESSAGE_END;
 	}

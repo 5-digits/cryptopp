@@ -297,6 +297,10 @@ inline BufferedTransformation & EncodedObjectFilter::CurrentTarget()
 		return TheBitBucket();
 }
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wswitch"
+#endif
 void EncodedObjectFilter::Put(const byte *inString, size_t length)
 {
 	if (m_nCurrentObject == m_nObjects)
@@ -309,6 +313,7 @@ void EncodedObjectFilter::Put(const byte *inString, size_t length)
 
 	while (m_queue.AnyRetrievable())
 	{
+        // warning: enumeration values 'TAIL' and 'ALL_DONE' not handled in switch
 		switch (m_state)
 		{
 		case IDENTIFIER:
@@ -372,6 +377,9 @@ void EncodedObjectFilter::Put(const byte *inString, size_t length)
 		}
 	}
 }
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
 
 BERGeneralDecoder::BERGeneralDecoder(BufferedTransformation &inQueue, byte asnTag)
 	: m_inQueue(inQueue), m_finished(false)
