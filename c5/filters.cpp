@@ -170,7 +170,14 @@ size_t MeterFilter::PutMaybeModifiable(byte *begin, size_t length, int messageEn
 	{
 		if (m_length > 0  && !m_rangesToSkip.empty() && m_rangesToSkip.front().message == m_totalMessages && m_currentMessageBytes + m_length > m_rangesToSkip.front().position)
 		{
+##ifndef _MSC_VER
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-value"
+#endif
 			FILTER_OUTPUT_MAYBE_MODIFIABLE(1, m_begin, t = (size_t)SaturatingSubtract(m_rangesToSkip.front().position, m_currentMessageBytes), false, modifiable);
+#ifndef _MSC_VER
+#pragma GCC diagnostic pop
+#endif
 
 			assert(t < m_length);
 			m_begin += t;
@@ -194,7 +201,14 @@ size_t MeterFilter::PutMaybeModifiable(byte *begin, size_t length, int messageEn
 		}
 		else
 		{
+##ifndef _MSC_VER
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-value"
+#endif
 			FILTER_OUTPUT_MAYBE_MODIFIABLE(2, m_begin, m_length, messageEnd, modifiable);
+#ifndef _MSC_VER
+#pragma GCC diagnostic pop
+#endif
 
 			m_currentMessageBytes += m_length;
 			m_totalBytes += m_length;
@@ -727,6 +741,10 @@ void HashFilter::IsolatedInitialize(const NameValuePairs &parameters)
 	m_digestSize = s < 0 ? m_hashModule.DigestSize() : s;
 }
 
+##ifndef _MSC_VER
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-value"
+#endif
 size_t HashFilter::Put2(const byte *inString, size_t length, int messageEnd, bool blocking)
 {
 	FILTER_BEGIN;
@@ -744,6 +762,9 @@ size_t HashFilter::Put2(const byte *inString, size_t length, int messageEnd, boo
 	}
 	FILTER_END_NO_MESSAGE_END;
 }
+#ifndef _MSC_VER
+#pragma GCC diagnostic pop
+#endif
 
 // *************************************************************
 
@@ -921,6 +942,10 @@ void SignerFilter::IsolatedInitialize(const NameValuePairs &parameters)
 	m_messageAccumulator.reset(m_signer.NewSignatureAccumulator(m_rng));
 }
 
+#ifndef _MSC_VER
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-value"
+#endif
 size_t SignerFilter::Put2(const byte *inString, size_t length, int messageEnd, bool blocking)
 {
 	FILTER_BEGIN;
@@ -936,6 +961,9 @@ size_t SignerFilter::Put2(const byte *inString, size_t length, int messageEnd, b
 	}
 	FILTER_END_NO_MESSAGE_END;
 }
+#ifndef _MSC_VER
+#pragma GCC diagnostic pop
+#endif
 
 SignatureVerificationFilter::SignatureVerificationFilter(const PK_Verifier &verifier, BufferedTransformation *attachment, word32 flags)
 	: FilterWithBufferedInput(attachment)
