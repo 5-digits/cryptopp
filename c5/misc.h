@@ -549,6 +549,9 @@ inline void SecureWipeArray(T *buf, size_t n)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-function"
 #endif
+#ifdef __GNUC__
+ __attribute__ ((unused))
+#endif
 // this function uses wcstombs(), which assumes that setlocale() has been called
 static std::string StringNarrow(const wchar_t *str, bool throwOnError = true)
 {
