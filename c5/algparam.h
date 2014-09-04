@@ -28,6 +28,9 @@ public:
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-variable"
 #endif
+#ifdef __GNUC__
+        __attribute__ ((unused))
+#endif
         CRYPTOPP_COMPILE_ASSERT(sizeof(CPP_TYPENAME T::value_type) == 1);
 #ifndef _MSC_VER
 #pragma GCC diagnostic pop
@@ -332,6 +335,9 @@ public:
 #ifndef _MSC_VER
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-variable"
+#endif
+#ifdef __GNUC__
+        __attribute__ ((unused))
 #endif
 		AlgorithmParametersTemplate<T>* p = new(buffer) AlgorithmParametersTemplate<T>(*this);
 #ifndef _MSC_VER
